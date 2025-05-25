@@ -1,0 +1,108 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+body {
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(55, 40, 40, 1) 100%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+body > div {
+  width: 100%;
+}
+.search-form {
+  width: 60%;
+  margin: 0 auto;
+  transform: translatey(50vh);
+}
+.input-group {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input-group input {
+  flex-grow: 1;
+  height: 60px;
+  border: none;
+  outline: none;
+  transition: all 50ms ease-in-out;
+  font-size: 1.4rem;
+  color: #1f2667;
+}
+.input-group input::placeholder {
+  color: #1f2667;
+}
+.input-group button {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 60px;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.input-group button:nth-child(1) {
+  color: #1f2667;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+}
+.input-group button:nth-last-child(1) {
+  color: #1f2667;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+}
+.search-form.active .input-group button:nth-child(1) {
+  color: #1f2667;
+  border-bottom-left-radius: unset;
+  border-top-left-radius: 30px;
+}
+.search-form.active .input-group button:nth-last-child(1) {
+  color: #1f2667;
+  border-bottom-right-radius: unset;
+  border-top-right-radius: 30px;
+}
+.auto-complete {
+  display: none;
+  width: 100%;
+  list-style: none;
+  transition: all 50ms ease-in-out;
+}
+.search-form.active .auto-complete {
+  display: block;
+}
+.auto-complete .auto-complete-list {
+  width: 100%;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: #1f2667;
+  overflow: hidden;
+}
+.auto-complete .auto-complete-list span {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 60px;
+  background-color: #fff;
+  transition: all 255ms ease-in-out;
+  color: #1f2667;
+}
+.auto-complete .auto-complete-list:nth-last-child(1) {
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
