@@ -19,7 +19,8 @@ const props = defineProps({
   <section class="movie">
     <h3 class="movie-category">{{ props.subTitle }}</h3>
     <h4 class="movie-subtext">
-      {{ props.title }} <RouterLink :to="`/movie/${props.type}`">더보기</RouterLink>
+      {{ props.title }}
+      <RouterLink v-if="props.type !== 'relative'" :to="`/movie/${props.type}`">더보기</RouterLink>
     </h4>
     <div class="movie-list">
       <template v-if="props.loading">

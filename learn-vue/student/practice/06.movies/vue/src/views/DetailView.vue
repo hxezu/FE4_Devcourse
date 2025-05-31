@@ -2,44 +2,63 @@
 import DetailInfo from '@/components/detail/DetailInfo.vue'
 import DetailTrailer from '@/components/detail/DetailTrailer.vue'
 import MainMovie from '@/components/main/MainMovie.vue'
-import { computed, onMounted, ref, watch } from 'vue'
+import { useMovieStore } from '@/stores/movie'
+import { storeToRefs } from 'pinia'
+import { computed, onBeforeUnmount, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-
-const movieId = computed(() => {
-  const id = Number(route.params.id)
-  return isNaN(id) ? -1 : id
-})
-
-const loading = ref(true)
-const movie = ref(null)
-
-const loadDetail = async () => {
-  if (movieId.value === -1) {
-    loading.value = false
-  }
-  loading.value = true
-  try {
-    movie.value = []
-  } catch (e) {
-    console.error(e)
-  } finally {
-    loading.value = false
-  }
-}
+const movieStore = useMovieStore()
+const {
+  movieDetail,
+  movieDetailLoading,
+  movieTrailerList,
+  movieTrailerListLoading,
+  movieDiscoverList,
+  movieDiscoverListLoading,
+  movieCreditList,
+  movieCreditListLoading,
+} = storeToRefs(movieStore)
 
 onMounted(() => {
-  loadDetail()
+  movieStore.getDetailsbyMovieId(route.params.id)
+  movieStore.getMovieTrailerbyMovieID(route.params.id)
+  movieStore.getMovieCredits(route.params.id)
 })
 
-watch(() => {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+const genre = computed(() => {
+  return movieDetail.value.genres?.map((v) => v.id).join(',') || ''
+})
+
+watch(genre, (newValue) => {
+  movieStore.getMovieDiscover(newValue, movieDetail.value.original_title)
+})
+
+const detailList = computed(() => {
+  return movieDiscoverList.value.filter((v) => v.id !== Number(route.params.id))
+})
+
+onBeforeUnmount(() => {
+  movieDetail.value = []
+  movieDetailLoading.value = true
+  movieDiscoverListLoading.value = true
 })
 </script>
 <template>
-  <DetailTrailer :movieId="movieId" />
-  <DetailInfo :movieId="movieId" />
-  <MainMovie />
+  <DetailTrailer :trailer="movieTrailerList" :loading="movieTrailerListLoading" />
+  <DetailInfo
+    :movie="movieDetail"
+    :loading="movieDetailLoading"
+    :credit="movieCreditList"
+    :credit-loading="movieCreditListLoading"
+  />
+  <MainMovie
+    v-if="detailList && detailList.length > 0"
+    title="비슷한 장르의 영화"
+    sub-title="Relative Movies"
+    type="relative"
+    :movies="detailList"
+    :loading="movieDiscoverListLoading"
+  />
 </template>
 <style scoped></style>

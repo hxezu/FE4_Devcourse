@@ -68,6 +68,22 @@ export const useMovieStore = defineStore('movie', () => {
     }
   }
 
+  const movieDiscoverList = ref([])
+  const movieDiscoverListLoading = ref(false)
+  const getMovieDiscover = async (genres) => {
+    try {
+      movieDiscoverListLoading.value = true
+      const response = await useFetch('/discover/movie', 'get', {
+        language: 'ko',
+        with_genres: genres,
+      })
+      movieDiscoverList.value = response.data.results
+      movieDiscoverListLoading.value = false
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   let movieTotalPages = 500
   const movieMoreList = ref([])
   const newMoreLoading = ref(false)
@@ -75,8 +91,8 @@ export const useMovieStore = defineStore('movie', () => {
 
   const getMovieMore = async (page = 1, type = 'now_playing', query = '') => {
     if (movieTotalPages < page) return
-    if (page === 1) movieMoreListLoading.value = true
     if (page > 1) newMoreLoading.value = true
+    if (page === 1) movieMoreListLoading.value = true
     try {
       let response = null
 
@@ -94,8 +110,54 @@ export const useMovieStore = defineStore('movie', () => {
       }
       movieTotalPages = Math.min(500, response.data.total_pages)
       movieMoreList.value = [...movieMoreList.value, ...response.data.results]
-      newMoreLoading.value = false
       movieMoreListLoading.value = false
+      newMoreLoading.value = false
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const movieDetail = ref([])
+  const movieDetailLoading = ref(false)
+
+  const getDetailsbyMovieId = async (movieID) => {
+    try {
+      movieDetailLoading.value = true
+      const response = await useFetch('/movie/' + movieID, 'get', {
+        language: 'ko',
+      })
+      movieDetail.value = response.data
+      movieDetailLoading.value = false
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const movieTrailerList = ref([])
+  const movieTrailerListLoading = ref(false)
+
+  const getMovieTrailerbyMovieID = async (movieId) => {
+    try {
+      movieTrailerListLoading.value = true
+      const response = await useFetch(`/movie/${movieId}/videos`, 'get')
+      movieTrailerList.value = response.data.results[0]
+      movieTrailerListLoading.value = false
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const movieCreditList = ref([])
+  const movieCreditListLoading = ref(false)
+
+  const getMovieCredits = async (id) => {
+    try {
+      movieCreditListLoading.value = true
+      const response = await useFetch(`/movie/${id}/credits`, 'get', {
+        language: 'ko',
+      })
+      movieCreditList.value = response.data
+      movieCreditListLoading.value = false
     } catch (e) {
       console.error(e)
     }
@@ -122,5 +184,21 @@ export const useMovieStore = defineStore('movie', () => {
     movieMoreListLoading,
     getMovieMore,
     newMoreLoading,
+
+    movieDetail,
+    movieDetailLoading,
+    getDetailsbyMovieId,
+
+    movieTrailerList,
+    movieTrailerListLoading,
+    getMovieTrailerbyMovieID,
+
+    movieDiscoverList,
+    movieDiscoverListLoading,
+    getMovieDiscover,
+
+    movieCreditList,
+    movieCreditListLoading,
+    getMovieCredits,
   }
 })

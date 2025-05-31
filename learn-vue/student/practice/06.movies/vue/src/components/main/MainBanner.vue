@@ -28,7 +28,7 @@ const randomMovie = computed(() => {
         <p class="release__desc">
           {{ randomMovie.overview }}
         </p>
-        <button class="release__btn">자세히보기</button>
+        <router-link class="release__btn" :to="`/detail/${randomMovie.id}`">자세히보기</router-link>
       </div>
     </div>
   </section>

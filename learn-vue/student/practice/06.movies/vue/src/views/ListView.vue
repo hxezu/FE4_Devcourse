@@ -24,7 +24,7 @@ const onScroll = () => {
   if (debounceTimer) clearTimeout(debounceTimer)
   debounceTimer = setTimeout(() => {
     const nearBottom =
-      window.innerHeight + window.screenY + 100 > document.documentElement.offsetHeight
+      window.innerHeight + window.scrollY + 100 > document.documentElement.offsetHeight
     if (nearBottom) {
       movieStore.getMovieMore(++page, movieType, keyword)
     }
