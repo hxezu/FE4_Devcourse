@@ -22,6 +22,8 @@ function getTitleByType(type: string) {
       return "개봉 예정 영화";
     case "top_rated":
       return "높은 평점을 받은 영화";
+    case "relative":
+      return "비슷한 장르의 영화";
     default:
       return "영화 리스트";
   }

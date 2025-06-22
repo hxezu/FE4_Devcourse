@@ -4,23 +4,24 @@ import Live from "../../assets/icons/live.png";
 import Popular from "../../assets/icons/popluar.png";
 import Video from "../../assets/icons/video.png";
 import Search from "../../assets/icons/search.png";
+import Link from "next/link";
 
 export default function Header() {
   return (
     <>
       <header className="header">
-        <a href="#">
+        <Link href="/">
           <h1 className="header__logo">Wave</h1>
-        </a>
+        </Link>
         <ul className="header__navi">
           <li>
-            <a href="#">상영중</a>
+            <a href="/movie/now_playing">상영중</a>
           </li>
           <li>
-            <a href="#">인기작</a>
+            <a href="/movie/popular">인기작</a>
           </li>
           <li>
-            <a href="#">개봉예정</a>
+            <a href="/movie/upcoming">개봉예정</a>
           </li>
         </ul>
         <div className="header-search">

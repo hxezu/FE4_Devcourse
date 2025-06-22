@@ -25,7 +25,7 @@ export default function MainMovie({
     <section className="movie">
       <h3 className="movie-category">{subtitle}</h3>
       <h4 className="movie-subtext">
-        {title} <a href={`/list/${type}`}>더보기</a>
+        {title} <a href={`/movie/${type}`}>더보기</a>
       </h4>
       <div className="movie-list">
         {loading && (

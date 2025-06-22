@@ -25,9 +25,9 @@ export default function Detail() {
       <DetailTrailer />
       <DetailInfo />
       <MainMovie
-        title="상영중인 영화"
-        subtitle="Now Playing"
-        type="now_playing"
+        title="비슷한 장르의 영화"
+        subtitle="Relative Movies"
+        type="relative"
         movies={mockMovies}
         loading={false}
       />
