@@ -1,6 +1,6 @@
-import "./style.css";
 import "./globals.css";
-import "./circular-bar.css";
+import "../styles/circular-bar.css";
+import "../styles/style.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 
