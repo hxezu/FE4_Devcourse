@@ -9,7 +9,7 @@ interface ListProps {
   movies: MovieItem[];
   loading: boolean;
   moreLoading: boolean;
-  params: { type: string };
+  params: Promise<{ type: string }>;
 }
 
 function getTitleByType(type: string) {
@@ -44,13 +44,13 @@ const mockMovies = [
   },
 ];
 
-export default function List({
+export default async function List({
   movies,
   loading,
   moreLoading,
   params,
 }: ListProps) {
-  const { type } = params;
+  const { type } = await params;
   const title = getTitleByType(type);
   movies = mockMovies;
 
