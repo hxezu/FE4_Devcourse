@@ -2,7 +2,7 @@ export default function DetailInfo() {
   return (
     <>
       <section className="detail">
-        <div className="detail-wrap">
+        {/* <div className="detail-wrap">
           <div className="detail-info">
             <h2 className="detail-title">Best Game</h2>
             <ul className="detail-features">
@@ -39,12 +39,12 @@ export default function DetailInfo() {
             </ul>
           </div>
           <div className="detail-poster">
-            <img
+            <Image
               src="https://image.tmdb.org/t/p/w500//clJYtRBUhDtvKhPk2HNfXouviKF.jpg"
               alt=""
             />
           </div>
-        </div>
+        </div> */}
         <div className="detail-wrap">
           <div className="detail-info">
             <h2 className="detail-title skeleton-list-item ui3"></h2>

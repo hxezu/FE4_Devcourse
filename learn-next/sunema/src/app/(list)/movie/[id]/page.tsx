@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface MovieItem {
   img: string;
   title: string;
@@ -9,11 +11,11 @@ interface ListProps {
   movies: MovieItem[];
   loading: boolean;
   moreLoading: boolean;
-  params: Promise<{ type: string }>;
+  params: Promise<{ id: string }>;
 }
 
-function getTitleByType(type: string) {
-  switch (type) {
+function getTitleByType(id: string) {
+  switch (id) {
     case "now_playing":
       return "현재 상영 중인 영화";
     case "popular":
@@ -50,8 +52,8 @@ export default async function List({
   moreLoading,
   params,
 }: ListProps) {
-  const { type } = await params;
-  const title = getTitleByType(type);
+  const { id } = await params;
+  const title = getTitleByType(id);
   movies = mockMovies;
 
   return (
@@ -69,7 +71,12 @@ export default async function List({
                 <div key={idx} className="movie-list__item">
                   <a href="#">
                     <figure>
-                      <img src={movie.img} alt={movie.title} />
+                      <Image
+                        src={movie.img}
+                        alt={movie.title}
+                        fill
+                        sizes="228px"
+                      />
                     </figure>
                     <div className="movie-list__txt">
                       <div className="progress-circle p50">

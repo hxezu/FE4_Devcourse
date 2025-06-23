@@ -1,12 +1,14 @@
+"use client";
+
 import Image from "next/image";
-import Home from "../../assets/icons/home.png";
-import Live from "../../assets/icons/live.png";
-import Popular from "../../assets/icons/popluar.png";
-import Video from "../../assets/icons/video.png";
-import Search from "../../assets/icons/search.png";
 import Link from "next/link";
+import { home, live, popular, search, video } from "@/assets/icons";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
+  const [isSearch, setIsSearch] = useState(false);
   return (
     <>
       <header className="header">
@@ -15,13 +17,13 @@ export default function Header() {
         </Link>
         <ul className="header__navi">
           <li>
-            <a href="/movie/now_playing">상영중</a>
+            <Link href="/movie/now_playing">상영중</Link>
           </li>
           <li>
-            <a href="/movie/popular">인기작</a>
+            <Link href="/movie/popular">인기작</Link>
           </li>
           <li>
-            <a href="/movie/upcoming">개봉예정</a>
+            <Link href="/movie/upcoming">개봉예정</Link>
           </li>
         </ul>
         <div className="header-search">
@@ -35,52 +37,64 @@ export default function Header() {
       </header>
       <nav className="navigator">
         <ul className="navigator-list">
-          <li className="navigator-list__item">
+          <li className="navigator-list__item" onClick={() => router.push("/")}>
             <Image
               width={20}
               height={20}
-              src={Home}
+              src={home}
               alt=""
               className="navigator-list__icon"
             />
             <strong className="navigator-list__txt">메인</strong>
           </li>
-          <li className="navigator-list__item">
+          <li
+            className="navigator-list__item"
+            onClick={() => router.push("/movie/now_playing")}
+          >
             <Image
               width={20}
               height={20}
-              src={Live}
+              src={live}
               alt=""
               className="navigator-list__icon"
             />
             <strong className="navigator-list__txt">상영중</strong>
           </li>
-          <li className="navigator-list__item">
+          <li
+            className="navigator-list__item"
+            onClick={() => router.push("/movie/popular")}
+          >
             <Image
               width={20}
               height={20}
-              src={Popular}
+              src={popular}
               alt=""
               className="navigator-list__icon"
             />
             <strong className="navigator-list__txt">인기작</strong>
           </li>
 
-          <li className="navigator-list__item">
+          <li
+            className="navigator-list__item"
+            onClick={() => router.push("/movie/upcoming")}
+          >
             <Image
               width={20}
               height={20}
-              src={Video}
+              src={video}
               alt=""
               className="navigator-list__icon"
             />
             <strong className="navigator-list__txt">개봉예정</strong>
           </li>
-          <li className="navigator-list__item">
+          <li
+            className="navigator-list__item"
+            onClick={() => setIsSearch(true)}
+          >
             <Image
               width={20}
               height={20}
-              src={Search}
+              src={search}
               alt=""
               className="navigator-list__icon"
             />
@@ -88,19 +102,21 @@ export default function Header() {
           </li>
         </ul>
       </nav>
-      <section className="search-box">
-        <div className="search-input">
-          <div className="search-wrap">
-            <button>x</button>
-            <input
-              type="text"
-              placeholder="영화 제목을 입력하세요"
-              autoComplete="off"
-            />
-            <span className="material-symbols-outlined icon"> search </span>
+      {isSearch && (
+        <section className="search-box">
+          <div className="search-input">
+            <div className="search-wrap">
+              <button onClick={() => setIsSearch(false)}>x</button>
+              <input
+                type="text"
+                placeholder="영화 제목을 입력하세요"
+                autoComplete="off"
+              />
+              <span className="material-symbols-outlined icon"> search </span>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

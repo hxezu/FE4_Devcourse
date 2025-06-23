@@ -2,7 +2,7 @@ export default function DetailTrailer() {
   return (
     <>
       <section className="trailer">
-        <iframe
+        {/* <iframe
           width="900"
           height="506"
           src="https://www.youtube.com/embed/iIxkC4ap8aU?si=FDVIRTdUuTZr3DgM"
@@ -10,7 +10,8 @@ export default function DetailTrailer() {
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
-        ></iframe>
+          style={{ border: 0 }}
+        ></iframe> */}
         <iframe
           className="skeleton-list-item"
           width="900"
@@ -19,6 +20,7 @@ export default function DetailTrailer() {
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
+          style={{ border: 0 }}
         ></iframe>
       </section>
     </>
